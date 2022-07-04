@@ -27,11 +27,11 @@ def gui(window):
         i=1
         
         ListBox = tk.Listbox(window,fg=F,bg=TXT,width=107, height=24)
+        
         for item in range(len(links)):
             ListBox.insert(i, links[item])
-            ListBox.itemconfig(item)
-            #print(item, links[item])
             i=i+1
+            
         ListBox.grid(row=1, column=0, sticky="nesw", padx=4, pady=5)
         
         command=Darkmode()
@@ -40,6 +40,7 @@ def gui(window):
         
         F = ("Black")
         TXT = ("White")
+        
         i=1
         
         ListBox = tk.Listbox(window,fg=F,bg=TXT,width=107, height=24)
@@ -67,7 +68,9 @@ def gui(window):
 
         ListBox = tk.Listbox(window,fg=F,bg=TXT,width=107, height=24)
         PL = Playlist(p)
+        
         print(i)
+                
         if links==[]:
             for url in PL.video_urls:
                 
@@ -78,7 +81,6 @@ def gui(window):
                 i=i+1
                 
         ListBox.grid(row=1, column=0, sticky="nesw", padx=4, pady=5)
-        truth=1
         command=Darkmode()
     
     def Lightmode():
@@ -101,7 +103,7 @@ def gui(window):
         window['background']= '#f0f0f0'
         
         mode = ('dark')
-        btn_switch= tk.Button(text=mode,command=ClearDark)
+        btn_switch= tk.Button(text=mode,command=SubmitDark)
         btn_switch.place(x=612, y=423)
 
         frm_buttons = tk.Frame(window)
@@ -127,7 +129,16 @@ def gui(window):
         B = ('#2f363d')
         TXT = ('#24292e')
 
+        i=1
+        ListBox = tk.Listbox(window,fg=F,bg=TXT,width=107, height=24)
+
         window.configure(bg = B)
+
+        for item in range(len(links)):
+            ListBox.insert(i, links[item])
+            ListBox.itemconfig(item)
+            print(item, links[item])
+            i=i+1
         
         mode = ('light')
         btn_switch= tk.Button(fg=F,bg=B,text=mode,command=Lightmode)
@@ -148,6 +159,8 @@ def gui(window):
 
         link_entry.grid(row=0, column=0, sticky="ne", padx=5, pady=8)
         link_entry2.grid(row=0, column=0, sticky="se", padx=5, pady=4)
+
+        ListBox.grid(row=1, column=0, sticky="nesw", padx=4, pady=5)
         
     def Printsmth():
 
@@ -156,7 +169,6 @@ def gui(window):
 
               
     ClearDark()
-    Darkmode()
         
         
     window.update()
