@@ -8,8 +8,9 @@ window.title("YT Playlist installer")
 window.resizable(False, False)
 window.geometry("655x457")
 
-p= "https://www.youtube.com/playlist?list=PLDD2Be2ZfSPjCInDBSAID2zYE4gKBFZ1Y"
-#p=''
+#p= "https://www.youtube.com/playlist?list=PLDD2Be2ZfSPjCInDBSAID2zYE4gKBFZ1Y"
+#p= "https://www.youtube.com/playlist?list=PLDD2Be2ZfSPjCInDBSAID2zE4gKBFZ1Y"
+p=('')
 
 GL_var= tk.StringVar()
 CD_var= tk.StringVar()
@@ -38,6 +39,7 @@ def gui(window):
         command=Darkmode()
         
     def SubmitLight():
+
         
         F = ("Black")
         TXT = ("White")
@@ -46,28 +48,22 @@ def gui(window):
         
         ListBox = tk.Listbox(window,fg=F,bg=TXT,width=107, height=24)
 
-##        if p != "https://www.youtube.com/playlist?list=PLDD2Be2ZfSPjCInDBSAID2zE4gKBFZ1Y":
-##            PL = Playlist(p)
-            
-        if links==[] and p != "https://www.youtube.com/playlist?Y":
-            
-            PL = Playlist(p)
-            for url in PL.video_urls:
+        p = Playlist(GL_var.get())
 
+        if links==[]:
+            for url in p.video_urls:
+                
                 ListBox.insert(i, f' 'f'{i}'f': 'f'{url}')
-                LKS=ListBox.get(i)
+                #LKS=ListBox.get(i)
                 links.append(f' 'f'{i}'f': 'f'{url}')
-                #print(ListBox.get(i))
                 i=i+1
-            
+                
 
         ListBox.grid(row=1, column=0, sticky="nesw", padx=4, pady=5)
         command=Lightmode()        
         
     def SubmitDark():
 
-        global p
-        print(p)
         F = ('white')
         TXT = ('#24292e')
         
@@ -75,34 +71,33 @@ def gui(window):
 
         ListBox = tk.Listbox(window,fg=F,bg=TXT,width=107, height=24)
         
-##        if p != "https://www.youtube.com/playlist?list=PLDD2Be2ZfSPjCInDBSAID2zE4gKBFZ1Y":
-##            PL = Playlist(p)
-##            
-##        print(p)
-                
-        if links==[] and p != "https://www.youtube.com/playlist?Y":
-            
-            PL = Playlist(p)
-            for url in PL.video_urls:
+        p = Playlist(GL_var.get())
+
+        if links==[]:
+            for url in p.video_urls:
                 
                 ListBox.insert(i, f' 'f'{i}'f': 'f'{url}')
-                LKS=ListBox.get(i)
+                #LKS=ListBox.get(i)
                 links.append(f' 'f'{i}'f': 'f'{url}')
-                #print(ListBox.get(i))
                 i=i+1
+
+        else:
+            ListBox.insert(1, 'ERROR')
                 
         ListBox.grid(row=1, column=0, sticky="nesw", padx=4, pady=5)
         command=Darkmode()
     
     def Lightmode():
+        
+        global GL_var
+        global CD_var
+        global p
 
         F = ("Black")
         TXT = ("White")
 
         i=1
         ListBox = tk.Listbox(window,fg=F,bg=TXT,width=107, height=24)
-
-        print (links)
         
         for item in range(len(links)):
             ListBox.insert(i, links[item])
@@ -122,6 +117,9 @@ def gui(window):
         btn_change= tk.Button(frm_buttons, text="Change Directory")
 
         link_entry = tk.Entry(fg="blue", textvariable=GL_var, width=89)
+        
+        p=(GL_var.get())
+        
         link_entry2 = tk.Entry(fg="blue", textvariable=CD_var, width=89)
 
         frm_buttons.grid(row=0, column= 0, sticky="w")
@@ -135,10 +133,11 @@ def gui(window):
 
 
     def Darkmode():
-        
-        global p
-        global PL
+
         global GL_var
+        global CD_var
+        global p
+
         
         F = ('white')
         B = ('#2f363d')
@@ -164,10 +163,9 @@ def gui(window):
         btn_change= tk.Button(frm_buttons, text="Change Directory",fg=F,bg=B)
 
         link_entry = tk.Entry(window, textvariable=GL_var, fg="white", bg=TXT, width=89)
-        p=GL_var
         
-        PL=Playlist(p)
-        print(p)
+        p=(GL_var.get())
+        
         link_entry2 = tk.Entry(window, textvariable=CD_var, fg="white", bg=TXT, width=89)
 
         frm_buttons.grid(row=0, column=0, sticky="w")
