@@ -17,117 +17,33 @@ CD_var= tk.StringVar()
 
 Truth=0
 
-links=[]
-
 def gui(window):
 
-    def ClearDark():
-        
-        F = ('white')
-        TXT = ('#24292e')
+    def Submit():
 
-        i=1
-        
-        ListBox = tk.Listbox(window,fg=F,bg=TXT,width=107, height=24)
-        for item in range(len(links)):
-            ListBox.insert(i, links[item])
-            ListBox.itemconfig(item)
-            print(item, links[item])
-            i=i+1
-        ListBox.grid(row=1, column=0, sticky="nesw", padx=4, pady=5)
-        
-        command=Darkmode()
-        
-    def SubmitLight():
-
-        F = ("Black")
-        TXT = ("White")
-##        F = ('white')
-##        TXT = ('#24292e')
-        i=1
-
-        #print(GL_var.get())
-        #print (p)
-        ListBox = tk.Listbox(window,fg=F,bg=TXT,width=107, height=24)
+        print(GL_var.get())
+        print (p)
         PL = Playlist(p)
-        #print (PL)
-        for url in PL.video_urls:
-            
-            ListBox.insert(i, f' 'f'{i}'f': 'f'{url}')
-            LKS=ListBox.get(i)
-            links.append(f' 'f'{i}'f': 'f'{url}')
-            print(ListBox.get(i))
-            i=i+1
-            
-##            ListBox.insert(6, 'bad321wwm')
-##            ListBox.insert(i)
-##            ListBox.insert(i, f'{url.title}')
-##            print ('dis work')
-            
-            
-        #Truth = 1
-        ListBox.grid(row=1, column=0, sticky="nesw", padx=4, pady=5)
-        command=Lightmode()        
-        
-
-    def SubmitDark():
-
-##        F = ("Black")
-##        TXT = ("White")
-        F = ('white')
-        TXT = ('#24292e')
-        i=1
-
-        #print(GL_var.get())
-        #print (p)
-        ListBox = tk.Listbox(window,fg=F,bg=TXT,width=107, height=24)
-        PL = Playlist(p)
-        #print (PL)
-        for url in PL.video_urls:
-            
-            ListBox.insert(i, f' 'f'{i}'f': 'f'{url}')
-            LKS=ListBox.get(i)
-            links.append(f' 'f'{i}'f': 'f'{url}')
-            print(ListBox.get(i))
-            i=i+1
-            
-##            ListBox.insert(6, 'bad321wwm')
-##            ListBox.insert(i)
-##            ListBox.insert(i, f'{url.title}')
-##            print ('dis work')
-            
-            
-        #Truth = 1
-        ListBox.grid(row=1, column=0, sticky="nesw", padx=4, pady=5)
+        print (PL)
+        Truth = 1
         command=Darkmode()
     
     def Lightmode():
 
         F = ("Black")
         TXT = ("White")
-
-        i=1
-        ListBox = tk.Listbox(window,fg=F,bg=TXT,width=107, height=24)
-
-        print (links)
-        #ListBox.insert(1, 'kablamo')
         
-        for item in range(len(links)):
-            ListBox.insert(i, links[item])
-            ListBox.itemconfig(item)
-            print(item, links[item])
-            i=i+1
-            
+        ListBox = tk.Listbox(window,fg=F,bg=TXT,width=107, height=24)
         
         window['background']= '#f0f0f0'
         
         mode = ('dark')
-        btn_switch= tk.Button(text=mode,command=ClearDark)
+        btn_switch= tk.Button(text=mode,command=Darkmode)
         btn_switch.place(x=612, y=423)
 
         #   Text on buttons and prerequisite syntax 
         frm_buttons = tk.Frame(window)
-        btn_gen= tk.Button(frm_buttons, text="Generate", command=SubmitLight)
+        btn_gen= tk.Button(frm_buttons, text="Generate")
         btn_change= tk.Button(frm_buttons, text="Change Directory")
 
         #   Text is blue and width is based on the allignment in lines 33,34
@@ -156,7 +72,7 @@ def gui(window):
         window.configure(bg = B)
 
         ListBox = tk.Listbox(window, fg=F, bg=TXT, width=107, height=24)
-##        ListBox.insert(1, 'bam')
+        ListBox.insert(1, 'bam')
         
         mode = ('light')
         btn_switch= tk.Button(fg=F,bg=B,text=mode,command=Lightmode)
@@ -164,10 +80,10 @@ def gui(window):
         
         #   Text on buttons and prerequisite syntax 
         frm_buttons = tk.Frame(window, bg=B)
-        btn_gen= tk.Button(frm_buttons, text="Generate",fg=F,bg=B,command=SubmitDark)
+        btn_gen= tk.Button(frm_buttons, text="Generate",fg=F,bg=B,command=Submit)
         btn_change= tk.Button(frm_buttons, text="Change Directory",fg=F,bg=B)
 
-##        ListBox.insert(2, 'bom')
+        ListBox.insert(2, 'bom')
         
         #print (GL_var)
         #   Text is blue and width is based on previous allignments
@@ -185,26 +101,24 @@ def gui(window):
         link_entry.grid(row=0, column=0, sticky="ne", padx=5, pady=8)
         link_entry2.grid(row=0, column=0, sticky="se", padx=5, pady=4)
         
-##        ListBox.insert(3, 'badwwm')
-##        
-##        if Truth == 1:
-##            i = 1
-##            for url in PL.video_urls:
-##                ListBox = tk.Listbox(window, fg=F, bg=TXT, width=107, height=24)
-##                ListBox.insert(6, 'bad321wwm')
-##                ListBox.insert(i)
-##                ListBox.insert(i, f' 'f'{i}'f': 'f'{url}')
-##                ListBox.insert(i, f'{url.title}')
-##                print ('dis work')
-##                i=i+1
-##                ListBox.grid(row=1, column=0, sticky="nesw", padx=4, pady=5)
-                
+        ListBox.insert(3, 'badwwm')
         
+        if Truth == 1:
+            
+            ListBox = tk.Listbox(window, fg=F, bg=TXT, width=107, height=24)
+            ListBox.insert(6, 'bad321wwm')
+            i = 1
+            for url in PL.video_urls:  
+                #ListBox.insert(i)
+                ListBox.insert(i, f' 'f'{i}'f': 'f'{url}')
+                #ListBox.insert(i, f'{url.title}')
+                i=i+1
+        ListBox.insert(4, 'ba32131')
         
         #   The large textfield, also im tired of writing these so have fun deciphering the rest :)
-##        ListBox.grid(row=1, column=0, sticky="nesw", padx=4, pady=5)
-##
-##        ListBox.insert(5, 'badw3213wm')
+        ListBox.grid(row=1, column=0, sticky="nesw", padx=4, pady=5)
+
+        ListBox.insert(5, 'badw3213wm')
 
 
 ##        #   The large textfield, also im tired of writing these so have fun deciphering the rest :)
@@ -218,7 +132,7 @@ def gui(window):
         
         
 
-    ClearDark()
+        
     Darkmode()
         
         

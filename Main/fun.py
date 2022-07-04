@@ -8,8 +8,8 @@ from pytube import Stream
 ##USE THIS FOR INPUT
 ##p = input("Give the playlist link:")
 
-window =tk.Tk()
-window.mainloop()
+##window =tk.Tk()
+##window.mainloop()
 
 ##TEMPORARY
 p= "https://www.youtube.com/playlist?list=PLDD2Be2ZfSPjCInDBSAID2zYE4gKBFZ1Y"
