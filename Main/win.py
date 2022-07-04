@@ -9,6 +9,7 @@ window.resizable(False, False)
 window.geometry("655x457")
 
 p= "https://www.youtube.com/playlist?list=PLDD2Be2ZfSPjCInDBSAID2zYE4gKBFZ1Y"
+#p=''
 
 GL_var= tk.StringVar()
 CD_var= tk.StringVar()
@@ -44,9 +45,13 @@ def gui(window):
         i=1
         
         ListBox = tk.Listbox(window,fg=F,bg=TXT,width=107, height=24)
-        PL = Playlist(p)
 
-        if links==[]:
+##        if p != "https://www.youtube.com/playlist?list=PLDD2Be2ZfSPjCInDBSAID2zE4gKBFZ1Y":
+##            PL = Playlist(p)
+            
+        if links==[] and p != "https://www.youtube.com/playlist?Y":
+            
+            PL = Playlist(p)
             for url in PL.video_urls:
 
                 ListBox.insert(i, f' 'f'{i}'f': 'f'{url}')
@@ -61,17 +66,23 @@ def gui(window):
         
     def SubmitDark():
 
+        global p
+        print(p)
         F = ('white')
         TXT = ('#24292e')
         
         i=1
 
         ListBox = tk.Listbox(window,fg=F,bg=TXT,width=107, height=24)
-        PL = Playlist(p)
         
-        print(i)
+##        if p != "https://www.youtube.com/playlist?list=PLDD2Be2ZfSPjCInDBSAID2zE4gKBFZ1Y":
+##            PL = Playlist(p)
+##            
+##        print(p)
                 
-        if links==[]:
+        if links==[] and p != "https://www.youtube.com/playlist?Y":
+            
+            PL = Playlist(p)
             for url in PL.video_urls:
                 
                 ListBox.insert(i, f' 'f'{i}'f': 'f'{url}')
@@ -110,8 +121,8 @@ def gui(window):
         btn_gen= tk.Button(frm_buttons, text="Generate", command=SubmitLight)
         btn_change= tk.Button(frm_buttons, text="Change Directory")
 
-        link_entry = tk.Entry(fg="blue", width=89)
-        link_entry2 = tk.Entry(fg="blue", width=89)
+        link_entry = tk.Entry(fg="blue", textvariable=GL_var, width=89)
+        link_entry2 = tk.Entry(fg="blue", textvariable=CD_var, width=89)
 
         frm_buttons.grid(row=0, column= 0, sticky="w")
         btn_gen.grid(row=0, column=0, sticky="ne", padx=5, pady=4)
@@ -124,7 +135,11 @@ def gui(window):
 
 
     def Darkmode():
-
+        
+        global p
+        global PL
+        global GL_var
+        
         F = ('white')
         B = ('#2f363d')
         TXT = ('#24292e')
@@ -150,7 +165,9 @@ def gui(window):
 
         link_entry = tk.Entry(window, textvariable=GL_var, fg="white", bg=TXT, width=89)
         p=GL_var
-        print (GL_var.get())
+        
+        PL=Playlist(p)
+        print(p)
         link_entry2 = tk.Entry(window, textvariable=CD_var, fg="white", bg=TXT, width=89)
 
         frm_buttons.grid(row=0, column=0, sticky="w")
