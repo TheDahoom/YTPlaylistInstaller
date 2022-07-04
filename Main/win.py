@@ -30,14 +30,14 @@ def gui(window):
         for item in range(len(links)):
             ListBox.insert(i, links[item])
             ListBox.itemconfig(item)
-            print(item, links[item])
+            #print(item, links[item])
             i=i+1
         ListBox.grid(row=1, column=0, sticky="nesw", padx=4, pady=5)
         
         command=Darkmode()
         
     def SubmitLight():
-
+        
         F = ("Black")
         TXT = ("White")
         i=1
@@ -45,13 +45,15 @@ def gui(window):
         ListBox = tk.Listbox(window,fg=F,bg=TXT,width=107, height=24)
         PL = Playlist(p)
 
-        for url in PL.video_urls:
+        if links==[]:
+            for url in PL.video_urls:
+
+                ListBox.insert(i, f' 'f'{i}'f': 'f'{url}')
+                LKS=ListBox.get(i)
+                links.append(f' 'f'{i}'f': 'f'{url}')
+                #print(ListBox.get(i))
+                i=i+1
             
-            ListBox.insert(i, f' 'f'{i}'f': 'f'{url}')
-            LKS=ListBox.get(i)
-            links.append(f' 'f'{i}'f': 'f'{url}')
-            print(ListBox.get(i))
-            i=i+1
 
         ListBox.grid(row=1, column=0, sticky="nesw", padx=4, pady=5)
         command=Lightmode()        
@@ -60,19 +62,23 @@ def gui(window):
 
         F = ('white')
         TXT = ('#24292e')
+        
         i=1
 
         ListBox = tk.Listbox(window,fg=F,bg=TXT,width=107, height=24)
         PL = Playlist(p)
-        for url in PL.video_urls:
-            
-            ListBox.insert(i, f' 'f'{i}'f': 'f'{url}')
-            LKS=ListBox.get(i)
-            links.append(f' 'f'{i}'f': 'f'{url}')
-            print(ListBox.get(i))
-            i=i+1
-            
+        print(i)
+        if links==[]:
+            for url in PL.video_urls:
+                
+                ListBox.insert(i, f' 'f'{i}'f': 'f'{url}')
+                LKS=ListBox.get(i)
+                links.append(f' 'f'{i}'f': 'f'{url}')
+                #print(ListBox.get(i))
+                i=i+1
+                
         ListBox.grid(row=1, column=0, sticky="nesw", padx=4, pady=5)
+        truth=1
         command=Darkmode()
     
     def Lightmode():
@@ -122,8 +128,6 @@ def gui(window):
         TXT = ('#24292e')
 
         window.configure(bg = B)
-
-        ListBox = tk.Listbox(window, fg=F, bg=TXT, width=107, height=24)
         
         mode = ('light')
         btn_switch= tk.Button(fg=F,bg=B,text=mode,command=Lightmode)
@@ -149,8 +153,8 @@ def gui(window):
 
         label = tk.Label(window,text= "OOGA FUCKING BOOGA")
         label.place(x=10,y=10)
-              
 
+              
     ClearDark()
     Darkmode()
         
