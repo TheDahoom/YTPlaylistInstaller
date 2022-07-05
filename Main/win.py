@@ -81,8 +81,13 @@ def gui(window):
                 links.append(f' 'f'{i}'f': 'f'{url}')
                 i=i+1
 
-        else:
+        if links==[]:
+            
+            BAD = ("red")
             ListBox.insert(1, 'ERROR')
+                            
+
+
                 
         ListBox.grid(row=1, column=0, sticky="nesw", padx=4, pady=5)
         command=Darkmode()
@@ -92,7 +97,9 @@ def gui(window):
         global GL_var
         global CD_var
         global p
+        global BAD
 
+        BAD = ("Black")
         F = ("Black")
         TXT = ("White")
 
@@ -116,7 +123,7 @@ def gui(window):
         btn_gen= tk.Button(frm_buttons, text="Generate", command=SubmitLight)
         btn_change= tk.Button(frm_buttons, text="Change Directory")
 
-        link_entry = tk.Entry(fg="blue", textvariable=GL_var, width=89)
+        link_entry = tk.Entry(fg=BAD, textvariable=GL_var, width=89)
         
         p=(GL_var.get())
         
