@@ -9,7 +9,6 @@ window.resizable(False, False)
 window.geometry("655x457")
 
 #p= "https://www.youtube.com/playlist?list=PLDD2Be2ZfSPjCInDBSAID2zYE4gKBFZ1Y"
-#p= "https://www.youtube.com/playlist?list=PLDD2Be2ZfSPjCInDBSAID2zE4gKBFZ1Y"
 p=('')
 
 GL_var= tk.StringVar()
@@ -17,22 +16,45 @@ CD_var= tk.StringVar()
 
 links=[]
 
+jinx=0
+
+BADD=('White')
+BADL=('Black')
+
 
 def gui(window):
-    
+
+    def PressedD():
+
+        global jinx
+        jinx=0
+        SubmitDark()
+        
+
+    def ClearL():
+
+        links.clear()
+        Lightmode()
+        
+    def ClearD():
+        
+        links.clear()
+        Darkmode()
+        
 
     def ClearDark():
-        
+
         F = ('white')
         TXT = ('#24292e')
 
         i=1
         
         ListBox = tk.Listbox(window,fg=F,bg=TXT,width=107, height=24)
-        
-        for item in range(len(links)):
-            ListBox.insert(i, links[item])
-            i=i+1
+
+        if links != []:
+            for item in range(len(links)):
+                ListBox.insert(i, links[item])
+                i=i+1
             
         ListBox.grid(row=1, column=0, sticky="nesw", padx=4, pady=5)
         
@@ -40,6 +62,9 @@ def gui(window):
         
     def SubmitLight():
 
+        global BADD
+        global BADL
+        global F
         
         F = ("Black")
         TXT = ("White")
@@ -50,19 +75,44 @@ def gui(window):
 
         p = Playlist(GL_var.get())
 
-        if links==[]:
+        print (GL_var.get())
+        str = GL_var.get()
+        print (str)
+
+        tinks=1
+
+        if links==[] and len(links)==0:
+            if(str.startswith('youtube.com')or('https://youtube.com')or('https://www.youtube.com')):
+                print('yep')
+                links.clear()
+                ListBox.insert(1, f'ERROR: link is incorrect')
+                links.append(f'ERROR: link is incorrect')
+                print ('nothing here')
+                BADD = ('red')
+                BADL = ('red')
+                tinks=0
+                    
+        if tinks==1:
+            links.clear()
+            SubmitLight()
             for url in p.video_urls:
                 
                 ListBox.insert(i, f' 'f'{i}'f': 'f'{url}')
-                #LKS=ListBox.get(i)
                 links.append(f' 'f'{i}'f': 'f'{url}')
                 i=i+1
-                
-
+        
+                BADL=('Black')
+                BADD=('White')
+      
+        print ('oh someonethuibguabaj:' and links[0])
         ListBox.grid(row=1, column=0, sticky="nesw", padx=4, pady=5)
         command=Lightmode()        
         
     def SubmitDark():
+
+        global BADD
+        global BADL
+        global jinx
 
         F = ('white')
         TXT = ('#24292e')
@@ -73,21 +123,37 @@ def gui(window):
         
         p = Playlist(GL_var.get())
 
-        if links==[]:
+        print (GL_var.get())
+        str = GL_var.get()
+        print (str)
+
+        tinks=1
+
+        if links==[] and len(links)==0 and jinx==0:
+            if(str.startswith('youtube.com')or('https://youtube.com')or('https://www.youtube.com')):
+                print('yep')
+                links.clear()
+                ListBox.insert(1, f'ERROR: link is incorrect')
+                links.append(f'ERROR: link is incorrect')
+                print ('nothing here')
+                BADD = ('red')
+                BADL = ('red')
+                tinks=0
+                jinx=1
+                    
+        if tinks==1:
+            #links.insert(0, '')
+            links.append(f'Available content:')
+            links.clear()
+            SubmitDark()
             for url in p.video_urls:
                 
                 ListBox.insert(i, f' 'f'{i}'f': 'f'{url}')
-                #LKS=ListBox.get(i)
                 links.append(f' 'f'{i}'f': 'f'{url}')
                 i=i+1
-
-        if links==[]:
-            
-            BAD = ("red")
-            ListBox.insert(1, 'ERROR')
-                            
-
-
+        
+                BADL=('Black')
+                BADD=('White')
                 
         ListBox.grid(row=1, column=0, sticky="nesw", padx=4, pady=5)
         command=Darkmode()
@@ -97,9 +163,8 @@ def gui(window):
         global GL_var
         global CD_var
         global p
-        global BAD
+        global BADL
 
-        BAD = ("Black")
         F = ("Black")
         TXT = ("White")
 
@@ -111,19 +176,23 @@ def gui(window):
             ListBox.itemconfig(item)
             print(item, links[item])
             i=i+1
-            
+        print (len(links))    
         
         window['background']= '#f0f0f0'
         
         mode = ('dark')
-        btn_switch= tk.Button(text=mode,command=SubmitDark)
+        btn_switch= tk.Button(text=mode,command=ClearDark)
         btn_switch.place(x=612, y=423)
 
+        mode = ('clear')
+        btn_switch2= tk.Button(text=mode,command=ClearL)
+        btn_switch2.place(x=610, y=395)
+        
         frm_buttons = tk.Frame(window)
         btn_gen= tk.Button(frm_buttons, text="Generate", command=SubmitLight)
         btn_change= tk.Button(frm_buttons, text="Change Directory")
 
-        link_entry = tk.Entry(fg=BAD, textvariable=GL_var, width=89)
+        link_entry = tk.Entry(fg=BADL, textvariable=GL_var, width=89)
         
         p=(GL_var.get())
         
@@ -141,11 +210,12 @@ def gui(window):
 
     def Darkmode():
 
+        
         global GL_var
         global CD_var
         global p
+        global BADD
 
-        
         F = ('white')
         B = ('#2f363d')
         TXT = ('#24292e')
@@ -163,13 +233,18 @@ def gui(window):
         
         mode = ('light')
         btn_switch= tk.Button(fg=F,bg=B,text=mode,command=Lightmode)
-        btn_switch.place(x=612, y=423)
+        btn_switch.place(x=611, y=423)
+
+        mode = ('clear')
+        btn_switch2= tk.Button(fg=F,bg=B,text=mode,command=ClearD)
+        btn_switch2.place(x=610, y=395)
+        
          
         frm_buttons = tk.Frame(window, bg=B)
-        btn_gen= tk.Button(frm_buttons, text="Generate",fg=F,bg=B,command=SubmitDark)
+        btn_gen= tk.Button(frm_buttons, text="Generate",fg=F,bg=B,command=PressedD)
         btn_change= tk.Button(frm_buttons, text="Change Directory",fg=F,bg=B)
 
-        link_entry = tk.Entry(window, textvariable=GL_var, fg="white", bg=TXT, width=89)
+        link_entry = tk.Entry(window, textvariable=GL_var, fg=BADD , bg=TXT, width=89)
         
         p=(GL_var.get())
         
