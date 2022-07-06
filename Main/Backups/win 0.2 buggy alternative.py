@@ -17,7 +17,6 @@ CD_var= tk.StringVar()
 links=[]
 
 jinx=0
-BM=''
 
 BADD=('White')
 BADL=('Black')
@@ -38,12 +37,9 @@ def gui(window):
         Lightmode()
         
     def ClearD():
-
-        global jinx
-        links.clear()
-        jinx=1
-        PressedD()
         
+        links.clear()
+        Darkmode()
         
 
     def ClearDark():
@@ -117,7 +113,6 @@ def gui(window):
         global BADD
         global BADL
         global jinx
-        global BM
 
         F = ('white')
         TXT = ('#24292e')
@@ -125,19 +120,16 @@ def gui(window):
         i=1
 
         ListBox = tk.Listbox(window,fg=F,bg=TXT,width=107, height=24)
-
-        LV=(GL_var.get())
-        LV=BM
+        
         p = Playlist(GL_var.get())
 
         print (GL_var.get())
         str = GL_var.get()
         print (str)
-        print (BM)
 
         tinks=1
 
-        if links==[] and len(links)==0 and jinx==0 and BM!=GL_var:
+        if links==[] and len(links)==0 and jinx==0:
             if(str.startswith('youtube.com')or('https://youtube.com')or('https://www.youtube.com')):
                 print('yep')
                 links.clear()
@@ -223,7 +215,6 @@ def gui(window):
         global CD_var
         global p
         global BADD
-        global LV
 
         F = ('white')
         B = ('#2f363d')
@@ -233,14 +224,13 @@ def gui(window):
         ListBox = tk.Listbox(window,fg=F,bg=TXT,width=107, height=24)
 
         window.configure(bg = B)
+
+        for item in range(len(links)):
+            ListBox.insert(i, links[item])
+            ListBox.itemconfig(item)
+            print(item, links[item])
+            i=i+1
         
-        if jinx!=0:
-            for item in range(len(links)):
-                ListBox.insert(i, links[item])
-                ListBox.itemconfig(item)
-                print(item, links[item])
-                i=i+1
-            
         mode = ('light')
         btn_switch= tk.Button(fg=F,bg=B,text=mode,command=Lightmode)
         btn_switch.place(x=611, y=423)
@@ -257,7 +247,6 @@ def gui(window):
         link_entry = tk.Entry(window, textvariable=GL_var, fg=BADD , bg=TXT, width=89)
         
         p=(GL_var.get())
-        LV=(GL_var.get())
         
         link_entry2 = tk.Entry(window, textvariable=CD_var, fg="white", bg=TXT, width=89)
 
@@ -273,7 +262,8 @@ def gui(window):
     def Printsmth():
 
         label = tk.Label(window,text= "OOGA FUCKING BOOGA")
-        label.place(x=10,y=12)
+        label.place(x=10,y=10)
+
               
     ClearDark()
         
