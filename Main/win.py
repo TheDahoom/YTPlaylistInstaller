@@ -42,7 +42,7 @@ def gui(window):
         global jinx
         links.clear()
         jinx=1
-        PressedD()
+        Darkmode()
         
         
 
