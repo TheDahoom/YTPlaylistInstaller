@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog
+from pytube import *
 from pytube import Playlist
 from pytube import YouTube
 
@@ -16,6 +17,7 @@ CD_var= tk.StringVar()
 
 links=[]
 
+DL=0
 jinx=0
 tinks=0
 
@@ -24,6 +26,16 @@ BADL=('Black')
 
 
 def gui(window):
+
+    def DownloadL():
+        global DL
+        DL=1
+        SubmitLight()
+        
+    def DownloadD():
+        global DL
+        DL=1
+        SubmitDark()
 
     def PressedD():
 
@@ -114,6 +126,7 @@ def gui(window):
         
     def SubmitDark():
 
+        global DL
         global BADD
         global BADL
         global jinx
@@ -132,18 +145,33 @@ def gui(window):
         str = GL_var.get()
         print (str)
         
+        if DL==1:
+            for video in p.videos:
+                video.streams.first().download()
+        
         if links==[] or len(links)==0 or len(links)==1:
             if(str.startswith('youtube.com')or('https://youtube.com')or('https://www.youtube.com')):
                 links.clear()
-                for url in p.video_urls:
+                #print(p.extract.video_info_url)
+                ListBox.insert(i, f'{p.title}')
+                links.append(f'{p.title}')
+                
+##                for url in p.video_urls:
+##                    SZ=url.title
+##                    ListBox.insert(i, f' 'f'{i}'f': 'f' {url}{SZ}')
+##                    links.append(f' 'f'{i}'f': 'f' {url}{SZ}')
+##                    i=i+1
                     
-                    ListBox.insert(i, f' 'f'{i}'f': 'f'{url}')
-                    links.append(f' 'f'{i}'f': 'f'{url}')
+                for title in p.videos:
+                    SZ=title.title
+                    ListBox.insert(i, f' 'f'{i}'f': 'f' {SZ}')
+                    links.append(f' 'f'{i}'f': 'f' {SZ}')
                     i=i+1
             
-                    BADL=('Black')
-                    BADD=('White')
-                    tinks=1
+                BADL=('Black')
+                BADD=('White')
+                DL=1
+                tinks=1
                     
         if len(links) <= 2 :
             print('yep')
@@ -239,6 +267,11 @@ def gui(window):
         mode = ('clear')
         btn_switch2= tk.Button(fg=F,bg=B,text=mode,command=ClearD)
         btn_switch2.place(x=610, y=395)
+
+        if DL!=0:
+            mode = ('Download')
+            btn_switch2= tk.Button(font='Arial', width=20,height=2,fg=F,bg=B,text=mode,command=DownloadD)
+            btn_switch2.place(x=245, y=395)
         
          
         frm_buttons = tk.Frame(window, bg=B)
